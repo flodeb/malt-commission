@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:h2:mem:malt;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    name:
+    username:
+    password:
+  jpa.hibernate.ddl-auto: update
+  liquibase.enabled: false
+
+application:
+  default-fee: 15
+  ipstack:
+    url: http://api.ipstack.com
+    access-key: 9527624d0fd8b3a4807fefa701500d0c

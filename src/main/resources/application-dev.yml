@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: root
+
+logging.level.com.malt: DEBUG
+
+application:
+  ipstack:
+    access-key: 9527624d0fd8b3a4807fefa701500d0c

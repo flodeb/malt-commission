@@ -1,0 +1,211 @@
+{
+	"info": {
+		"_postman_id": "c1352718-3500-48e8-9df2-94f7cdd32a1a",
+		"name": "MALT_COMMISSION",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Rule",
+			"item": [
+				{
+					"name": "Create Rule - Simple Restrictions",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Simple Restriction\",\n  \"fees\": 10,\n  \"restrictions\": [\n    {\n      \"constraint\": {\n        \"name\": \"CLIENT_LOCATION\",\n        \"key\": \"country\",\n        \"value\": \"FR\"\n      }\n    },\n    {\n      \"constraint\": {\n        \"name\": \"FREELANCER_LOCATION\",\n        \"key\": \"country\",\n        \"value\": \"ES\"\n      }\n    }\n  ]\n}\n"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/admin/rules",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"rules"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Rule - OR Restriction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"OR Restriction\",\n  \"fees\": 20,\n  \"restrictions\": [\n    {\n      \"condition\": \"OR\",\n      \"restrictions\": [\n        {\n          \"constraint\": {\n        \t\"name\": \"CLIENT_LOCATION\",\n            \"key\": \"country\",\n            \"value\": \"FR\"\n          }\n        },\n        {\n          \"constraint\": {\n        \t\"name\": \"FREELANCER_LOCATION\",\n            \"key\": \"country\",\n            \"value\": \"ES\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/admin/rules",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"rules"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Rule - Exercice",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"spain or repeat\",\n  \"fees\": 8,\n  \"restrictions\": [\n    {\n      \"condition\": \"OR\",\n      \"restrictions\": [\n\t    {\n\t      \"constraint\": {\n\t    \t\"name\": \"MISSION_DURATION\",\n\t        \"key\": \"GT\",\n\t        \"value\": \"2\"\n\t      }\n\t    },\n\t    {\n\t      \"constraint\": {\n\t    \t\"name\": \"COMMERCIAL_RELATION_DURATION\",\n\t        \"key\": \"GT\",\n\t        \"value\": \"2\"\n\t      }\n\t    }\n      ]\n    },\n    {\n      \"constraint\": {\n    \t\"name\": \"CLIENT_LOCATION\",\n        \"key\": \"COUNTRY\",\n        \"value\": \"ES\"\n      }\n    },\n    {\n      \"constraint\": {\n    \t\"name\": \"FREELANCER_LOCATION\",\n        \"key\": \"COUNTRY\",\n        \"value\": \"ES\"\n      }\n    }\n  ]\n}\n"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/admin/rules",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"rules"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Rule - Nested restrictions",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \n   \"name\":\"Nested restriction\",\n   \"fees\": 5.5,\n   \"restrictions\":[  \n      {  \n         \"condition\":\"OR\",\n         \"restrictions\":[  \n            {  \n               \"constraint\":{  \n                  \"name\":\"MISSION_DURATION\",\n                  \"key\":\"GT\",\n                  \"value\":\"20\"\n               }\n            },\n            {  \n               \"condition\":\"AND\",\n               \"restrictions\":[  \n                  {  \n                     \"constraint\":{  \n                        \"name\":\"MISSION_DURATION\",\n                        \"key\":\"GT\",\n                        \"value\":\"10\"\n                     }\n                  },\n                  {  \n                     \"constraint\":{  \n                        \"name\":\"COMMERCIAL_RELATION_DURATION\",\n                        \"key\":\"LT\",\n                        \"value\":\"3\"\n                     }\n                  }\n               ]\n            }\n         ]\n      },\n      {  \n         \"constraint\":{  \n            \"name\":\"CLIENT_LOCATION\",\n            \"key\":\"COUNTRY\",\n            \"value\":\"ES\"\n         }\n      },\n      {  \n         \"constraint\":{  \n            \"name\":\"FREELANCER_LOCATION\",\n            \"key\":\"COUNTRY\",\n            \"value\":\"ES\"\n         }\n      }\n   ]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/admin/rules",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"rules"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Commission",
+			"item": [
+				{
+					"name": "Calculate Commission - Exercice",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clientIp\": \"217.127.206.227\",\n  \"freelancerIp\": \"217.127.206.227\",\n  \"mission\": {\n    \"duration\": 4\n  },\n  \"commercialRelation\":{\n    \"firstMission\": \"2018-04-16T13:24:17.510Z\",\n    \"lastMission\": \"2018-04-16T14:24:17.510Z\"\n  }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/commissions/calculateRate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"commissions",
+								"calculateRate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Calculate Commission - Nested restrictons valid",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clientIp\": \"217.127.206.227\",\n  \"freelancerIp\": \"217.127.206.227\",\n  \"mission\": {\n    \"duration\": 15\n  },\n  \"commercialRelation\":{\n    \"firstMission\": \"2018-04-16T13:24:17.510Z\",\n    \"lastMission\": \"2018-04-16T14:24:17.510Z\"\n  }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/commissions/calculateRate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"commissions",
+								"calculateRate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
